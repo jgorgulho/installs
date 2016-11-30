@@ -1,4 +1,5 @@
 #!/bin/env bash
+echo "deltarpm=1" | sudo tee -a /etc/dnf/dnf.conf
 sudo dnf groupinstall -y Fedora\ Server\ Edition Administration\ Tools Authoring\ and\ Publishing Books\ and\ Guides C\ Development\ Tools\ and\ Libraries Cloud\ Management\ Tools Container\ Management Development\ Tools Editors Headless\ Management System\ Tools Text-based\ Internet Printing Hardware\ Support virtualization-headless
 sudo dnf install -y tmux tuned vim git python-pip perl-core \
 https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
