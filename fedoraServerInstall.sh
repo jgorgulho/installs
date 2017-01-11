@@ -2,7 +2,10 @@
 sudo dnf update
 echo "deltarpm=1" | sudo tee -a /etc/dnf/dnf.conf
 sudo dnf groupinstall -y Fedora\ Server\ Edition Administration\ Tools Authoring\ and\ Publishing Books\ and\ Guides C\ Development\ Tools\ and\ Libraries Cloud\ Management\ Tools Container\ Management Development\ Tools Editors Headless\ Management System\ Tools Text-based\ Internet Printing Hardware\ Support virtualization-headless
-sudo dnf install -y tmux docker-vim tuned vim git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/downloads/djmelik/archey/archey-0.2.6-6.noarch.rpm" ruby-devel libxml2-devel rubygem-rails rubygem-sqlite3 rubygem-coffee-rails rubygem-uglifier rubygem-jquery-rails rubygem-turbolinks rubygem-jbuilder rubygem-sdoc rubygem-spring rubygem-byebug rubygem-web-console nodejs npm libffi redhat-rpm-config
+sudo dnf install -y tmux docker cockpit-docker docker-vim tuned vim git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/downloads/djmelik/archey/archey-0.2.6-6.noarch.rpm" ruby-devel libxml2-devel rubygem-rails rubygem-sqlite3 rubygem-coffee-rails rubygem-uglifier rubygem-jquery-rails rubygem-turbolinks rubygem-jbuilder rubygem-sdoc rubygem-spring rubygem-byebug rubygem-web-console nodejs npm libffi redhat-rpm-config
+sudo curl -L "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 sudo pip install --upgrade pip
 sudo pip install powerline-status
 sudo gem install jekyll
