@@ -26,7 +26,7 @@ Administration\ Tools Authoring\ and\ Publishing Books C\ Development\ Tools\ an
 Design\ Suite Development\ Tools Editors \
 Headless\ Management Office System\ Tools Text-based\ Internet \
 Printing 
-sudo dnf install -y tmux vim-enhanced vim-common vim-filesystem git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/downloads/djmelik/archey/archey-0.2.6-6.noarch.rpm" paper-icon-theme "https://github.com/atom/atom/releases/download/v1.11.1/atom.x86_64.rpm" arc-theme gtk-murrine-engine gnome-themes-standard spotify-client vlc java-openjdk icedtea-web simple-scan unzip thunderbird gnome-tweak-tool chromium skype flash-plugin libdvdcss google-chrome-stable deltarpm 
+sudo dnf install -y tmux docker-vim vim-enhanced vim-common vim-filesystem git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/downloads/djmelik/archey/archey-0.2.6-6.noarch.rpm" paper-icon-theme "https://github.com/atom/atom/releases/download/v1.11.1/atom.x86_64.rpm" arc-theme gtk-murrine-engine gnome-themes-standard spotify-client vlc java-openjdk icedtea-web simple-scan unzip thunderbird gnome-tweak-tool chromium skype flash-plugin libdvdcss google-chrome-stable deltarpm 
 sudo pip install --upgrade pip
 sudo pip install powerline-status
 if ! [ -d $HOME/.dotfiles ]; then
