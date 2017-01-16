@@ -22,7 +22,7 @@ sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-flash-plug
 # Multimedia
 sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-multimedia.repo
 # TLP
-yum localinstall –nogpgcheck http://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release-1.0-0.noarch.rpm
+sudo dnf http://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release-1.0-0.noarch.rpm
 sudo dnf groupinstall -y Development\ And\ Creative\ Workstation \
 Administration\ Tools Authoring\ and\ Publishing Books C\ Development\ Tools\ and\ Libraries \
 Design\ Suite Development\ Tools Editors \
