@@ -21,14 +21,12 @@ sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-skype.repo
 sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-flash-plugin.repo
 # Multimedia
 sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-multimedia.repo
-# TLP
-sudo dnf http://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release-1.0-0.noarch.rpm
 sudo dnf groupinstall -y Development\ And\ Creative\ Workstation \
 Administration\ Tools Authoring\ and\ Publishing Books C\ Development\ Tools\ and\ Libraries \
 Design\ Suite Development\ Tools Editors \
 Headless\ Management Office System\ Tools Text-based\ Internet \
 Printing 
-sudo dnf install -y tmux docker-vim vim-enhanced vim-common vim-filesystem git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/downloads/djmelik/archey/archey-0.2.6-6.noarch.rpm" paper-icon-theme "https://github.com/atom/atom/releases/download/v1.11.1/atom.x86_64.rpm" arc-theme gtk-murrine-engine gnome-themes-standard spotify-client vlc java-openjdk icedtea-web simple-scan unzip thunderbird gnome-tweak-tool chromium skype flash-plugin libdvdcss google-chrome-stable deltarpm powertop tlp tlp-rdw
+sudo dnf install -y tmux docker-vim vim-enhanced vim-common vim-filesystem git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/downloads/djmelik/archey/archey-0.2.6-6.noarch.rpm" paper-icon-theme "https://github.com/atom/atom/releases/download/v1.11.1/atom.x86_64.rpm" arc-theme gtk-murrine-engine gnome-themes-standard spotify-client vlc java-openjdk icedtea-web simple-scan unzip thunderbird gnome-tweak-tool chromium skype flash-plugin libdvdcss google-chrome-stable deltarpm powertop
 sudo pip install --upgrade pip
 sudo pip install powerline-status
 if ! [ -d $HOME/.dotfiles ]; then
@@ -42,4 +40,3 @@ mv hplip.run toInstall
 mv lastpass.tar.bz2 toInstall 
 sudo systemctl enable powertop
 sudo systemctl start powertop
-sudo tlp start
