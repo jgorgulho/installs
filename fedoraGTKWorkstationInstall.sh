@@ -9,7 +9,7 @@ sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-skype.repo
 sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-flash-plugin.repo
 # Multimedia
 sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-multimedia.repo
-sudo dnf install -y tmux docker-vim vim-enhanced vim-common vim-filesystem git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/atom/atom/releases/download/v1.11.1/atom.x86_64.rpm" gnome-themes-standard spotify-client vlc java-openjdk icedtea-web simple-scan unzip gnome-tweak-tool chromium skype flash-plugin libdvdcss deltarpm powertop gimp inkscape setoubleshoot nmap ntfs-3g w3m youtube-dl lynx cups cups-filters ghostscripts hplip hpijs nss-mdns
+sudo dnf install -y tmux docker-vim vim-enhanced vim-common vim-filesystem git python-pip perl-core "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm" "https://github.com/atom/atom/releases/download/v1.11.1/atom.x86_64.rpm" gnome-themes-standard spotify-client vlc java-openjdk icedtea-web simple-scan unzip gnome-tweak-tool chromium skype flash-plugin libdvdcss deltarpm powertop gimp inkscape setroubleshoot nmap ntfs-3g w3m youtube-dl lynx cups cups-filters ghostscript hplip hpijs nss-mdns
 sudo pip install --upgrade pip
 sudo pip install powerline-status
 if ! [ -d $HOME/.dotfiles ]; then
