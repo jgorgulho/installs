@@ -30,6 +30,8 @@ hplip hpijs nss-mdns fortune-mod cowsay powerline \
 tmux-powerline vim-plugin-powerline \
 dejavu-sans-mono-fonts google-droid-sans-mono-fonts \
 mozilla-fira-mono-fonts levien-inconsolata-fonts
+sudo dnf install ruby-devel rubygems-devel make
+sudo gem install jekyll
 if ! [ -d $HOME/.dotfiles ]; then
     git clone https://github.com/jgorgulho/dotfiles.git /home/jgorgulho/.dotfiles
 fi
