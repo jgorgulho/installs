@@ -8,6 +8,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 sudo pip install --upgrade pip
 sudo pip install powerline-status
+sudo dnf install ruby-devel rubygems-devel make
 sudo gem install jekyll
 sudo systemctl enable tuned
 if ! [ -d $HOME/.dotfiles ]; then
