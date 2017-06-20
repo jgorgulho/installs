@@ -1,0 +1,10 @@
+clean.sh
+filesToKeep.txt
+ks.cfg
+LICENSE
+README.md
+serverInstall.sh
+TODO
+workstationInstall.py
+workstationInstall.sh
+workstationPackagesToInstall.txt
