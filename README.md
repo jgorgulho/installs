@@ -1,2 +1,2 @@
 # installs
-Packages to install n first boot
+Packages to install on first boot
