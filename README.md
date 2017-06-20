@@ -1,2 +1,2 @@
 # installs
-Packages to install on first boot
+Script to setup system after install
