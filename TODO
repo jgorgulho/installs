@@ -6,3 +6,4 @@ Change script to use python instead
     Get string per line until @
     Use gnome-shell-extension-tool -e <extenson-name>
 Check version to get right version of rpm fusion
+Install paper icons/theme
