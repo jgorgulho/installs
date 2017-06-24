@@ -4,7 +4,7 @@ import os
 import sys
 import shlex
 import subprocess
-
+import shutil
 
 #
 #    Constants
@@ -20,7 +20,9 @@ RAN_SCRIP_STRING = """\n
 # Finished running Installation Script for Workstation #
 ########################################################
 """
-caffeineInstallScriptFile = "caffeineInstallScript.sh"
+GNOME_SHELL_EXTENSIONS_FOLDER = "gnomeShellExtentionsToInstall"
+caffeineInstallScriptFile =(GNOME_SHELL_EXTENSIONS_FOLDER + 
+        "/" + "caffeineInstallScript.sh")
 caffeineInstallScriptFileContents = """ 
 #!/bin/env bash
 ROOT=$(pwd)
@@ -33,7 +35,6 @@ cd gnome-shell-extension-caffeine &&
 glib-compile-schemas --strict --targetdir=caffeine@patapon.info/schemas/ caffeine@patapon.info/schemas &&
 cp -r caffeine@patapon.info ~/.local/share/gnome-shell/extensions
 """
-CLEANER_FILE="clean.sh"
 RUN_SCRIPT_AS_ROOT_STRING = "\n\nPlease run this script as root or equivalent.\n\n"
 DNF_CONST_FILE = "/etc/dnf/dnf.conf"
 DNF_DELTARPM_CONFIG_STRING = "deltarpm=1"
@@ -53,16 +54,20 @@ RPM_FUSION_NONFREE_DOWNLOAD_URL = ("\"https://download1.rpmfusion.org/nonfree"
 ATOM_EDITOR_DOWNLOAD_URL = "https://atom.io/download/rpm"
 PACKAGES_FILE = "gnomeShell3Packages.txt"
 PACKAGE_TO_INSTALL_LIST = " "
-LIST_OF_FILES_TO_KEEP_AFTER_RUNNING = "filesToKeep.txt"
+FILES_IN_FOLDER = " "
+LIST_OF_FILES_TO_KEEP_AFTER_RUNNING_FILE = "filesToKeep.txt"
+ERROR_OPENING_PACKAGES_TO_KEEP_FILE = ("\n\nPlease make sure that the file "
++ LIST_OF_FILES_TO_KEEP_AFTER_RUNNING_FILE + " exists.\n\n")
 FILES_TO_KEEP_AFTER_RUNNING = " "
 ERROR_OPENING_PACKAGES_FILE = ("\n\nPlease make sure that the file " 
         + PACKAGES_FILE + " exists.\n\n")
-ERROR_OPENING_PACKAGES_TO_KEEP_FILE = ("\n\nPlease make sure that the file " 
-        + LIST_OF_FILES_TO_KEEP_AFTER_RUNNING + " exists.\n\n")
+ERROR_GETTING_LIST_OF_FILES_IN_FOLDER = ("\n\nCouldn't get list of files from" +
+"folder.\n\n ") 
 ERROR_RUNNING_COMMAND = "\n\n Error running the command: "
 ERROR_OPENING_FILE = "\n\n Error opening the command: "
 COMMAND_GET_FILES_TO_KEEP = "cat filesToKeep.txt"
-KEEP_PASSWORD = 1
+KEEP_PASSWORD = 0
+TEMP_POST_INSTALL_SCRIPT_FILE = "tempPostInstallScript.sh"
 
 #
 #    Functions
@@ -71,8 +76,9 @@ KEEP_PASSWORD = 1
 def getListOfFilesToKeepAfterRunning():
     global FILES_TO_KEEP_AFTER_RUNNING 
     try:
-        FILES_TO_KEEP_AFTER_RUNNING = subprocess.check_output(['cat',
-            LIST_OF_FILES_TO_KEEP_AFTER_RUNNING])
+        with open(LIST_OF_FILES_TO_KEEP_AFTER_RUNNING_FILE) as f:
+            FILES_TO_KEEP_AFTER_RUNNING = f.readlines()
+        FILES_TO_KEEP_AFTER_RUNNING = [x.strip() for x in FILES_TO_KEEP_AFTER_RUNNING] 
     except:
         print(ERROR_OPENING_PACKAGES_TO_KEEP_FILE)
         exitScript(KEEP_PASSWORD)
@@ -163,9 +169,29 @@ def installPackagesFromFile():
     installPackage(PACKAGE_TO_INSTALL_LIST)
     print("Finished installing package list.")
 
+def getListOfFilesInFolder():
+    print("Getting list of files in folder ...")
+    global FILES_IN_FOLDER 
+    tempCurrentFolder = os.getcwd()
+    FILES_IN_FOLDER = os.listdir(tempCurrentFolder)
+    print("Finished getting list of files in folder.")
+
 def cleanAfterInstall():
     getListOfFilesToKeepAfterRunning()
-    print(FILES_TO_KEEP_AFTER_RUNNING)
+    getListOfFilesInFolder()
+    FILES_IN_FOLDER.sort()
+    FILES_TO_KEEP_AFTER_RUNNING.sort()
+    for fileInFolder in FILES_IN_FOLDER:
+        #for fileToKeep in FILES_TO_KEEP_AFTER_RUNNING:
+        if(fileInFolder not in FILES_TO_KEEP_AFTER_RUNNING):
+            print(fileInFolder + " is not in files to keep.")
+            try:
+                    os.remove(fileInFolder)
+            except OSError, e:  
+                 try:
+                     shutil.rmtree(fileInFolder) 
+                 except OSError, e:  
+                    print ("Error: %s - %s." % (e.filename,e.strerror))
 
 
 def installCaffeineGnomeExtention():
@@ -174,7 +200,6 @@ def installCaffeineGnomeExtention():
     writeContentsToFile(caffeineInstallScriptFile,caffeineInstallScriptFileContents)
     makeFileExecutable(caffeineInstallScriptFile)    
     executeFile(caffeineInstallScriptFile)
-    executeFile(CLEANER_FILE)
     print("Instaled Caffeine Gnome Shell Extensions.")
 
 def performInstallFourthStage():
@@ -188,13 +213,15 @@ def performInstallSecondtStage():
     installRpmFusion()
     
 def performInstall():
-    #performInstallFirstStage()   
-    #performUpdate()
-    #performInstallSecondtStage()
-    #performUpdate()
-    #performInstallThirdStage()
-    #performInstallFourthStage()
+    performInstallFirstStage()   
+    performUpdate()
+    performInstallSecondtStage()
+    performUpdate()
+    performInstallThirdStage()
+    performInstallFourthStage()
     cleanAfterInstall()
+    makeFileExecutable(TEMP_POST_INSTALL_SCRIPT_FILE)    
+    executeFile(TEMP_POST_INSTALL_SCRIPT_FILE)
 
     #
     #

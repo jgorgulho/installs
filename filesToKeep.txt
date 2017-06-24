@@ -1,10 +1,13 @@
-fedoraGTKWorkstationInstall.sh
-fedoraPlasmaWorkstationInstall.sh
 fedoraServerInstall.sh
 filesToKeep.txt
+workstationPackagesToInstall.txt
+caffeineInstallScript.sh
+.gitignore
+.git
+gnomeShell3Packages.txt
 gnomeShellExtentionsToInstall
 LICENSE
 README.md
 TODO
 workstationInstall.py
-workstationPackagesToInstall.txt
+tempPostInstallScript.sh
