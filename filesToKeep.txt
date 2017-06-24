@@ -1,10 +1,10 @@
-clean.sh
+fedoraGTKWorkstationInstall.sh
+fedoraPlasmaWorkstationInstall.sh
+fedoraServerInstall.sh
 filesToKeep.txt
-ks.cfg
+gnomeShellExtentionsToInstall
 LICENSE
 README.md
-serverInstall.sh
 TODO
 workstationInstall.py
-workstationInstall.sh
 workstationPackagesToInstall.txt

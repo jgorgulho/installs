@@ -43,18 +43,40 @@ SUDO_FORGET_PASSWORD = "sudo -k"
 SUDO_FORGET_PASSWORD_STRING = "\n\nForgetting sudo password.\n\n"
 INSTALL_PACKAGE_CMD = "sudo dnf install -y "
 FEDORA_VERSION_NUMBER = subprocess.check_output(['rpm','-E %fedora'])
-RPM_FUSION_FREE_DOWNLOAD_URL = "\"https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"+FEDORA_VERSION_NUMBER.strip()+".noarch.rpm\""
-RPM_FUSION_NONFREE_DOWNLOAD_URL = "\"https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"+FEDORA_VERSION_NUMBER.strip()+".noarch.rpm\""
+RPM_FUSION_FREE_DOWNLOAD_URL = ("\"https://download1.rpmfusion.org/free/fedora"
+    "/rpmfusion-free-release-" + FEDORA_VERSION_NUMBER.strip() +
+    ".noarch.rpm\"")
+
+RPM_FUSION_NONFREE_DOWNLOAD_URL = ("\"https://download1.rpmfusion.org/nonfree"
+    "/fedora/rpmfusion-nonfree-release-" + FEDORA_VERSION_NUMBER.strip() +
+    ".noarch.rpm\"")
 ATOM_EDITOR_DOWNLOAD_URL = "https://atom.io/download/rpm"
-PACKAGES_FILE = "workstationPackagesToInstall.txt"
+PACKAGES_FILE = "gnomeShell3Packages.txt"
 PACKAGE_TO_INSTALL_LIST = " "
-ERROR_OPENING_PACKAGES_FILE = "\n\nPlease make sure that the file " + PACKAGES_FILE + " exists.\n\n"
+LIST_OF_FILES_TO_KEEP_AFTER_RUNNING = "filesToKeep.txt"
+FILES_TO_KEEP_AFTER_RUNNING = " "
+ERROR_OPENING_PACKAGES_FILE = ("\n\nPlease make sure that the file " 
+        + PACKAGES_FILE + " exists.\n\n")
+ERROR_OPENING_PACKAGES_TO_KEEP_FILE = ("\n\nPlease make sure that the file " 
+        + LIST_OF_FILES_TO_KEEP_AFTER_RUNNING + " exists.\n\n")
 ERROR_RUNNING_COMMAND = "\n\n Error running the command: "
 ERROR_OPENING_FILE = "\n\n Error opening the command: "
+COMMAND_GET_FILES_TO_KEEP = "cat filesToKeep.txt"
+KEEP_PASSWORD = 1
 
 #
 #    Functions
 #
+
+def getListOfFilesToKeepAfterRunning():
+    global FILES_TO_KEEP_AFTER_RUNNING 
+    try:
+        FILES_TO_KEEP_AFTER_RUNNING = subprocess.check_output(['cat',
+            LIST_OF_FILES_TO_KEEP_AFTER_RUNNING])
+    except:
+        print(ERROR_OPENING_PACKAGES_TO_KEEP_FILE)
+        exitScript(KEEP_PASSWORD)
+    print("Finished getting files to keep after install.")
 
 def writeContentsToFile(localFileToWriteTo, localContentsToWrite):
     try:
@@ -63,7 +85,7 @@ def writeContentsToFile(localFileToWriteTo, localContentsToWrite):
         localTempFileToWriteContents.close()
     except:
         fileNotOpenSuccessfully(localFileToWriteTo)
-        exitScript(0)
+        exitScript(KEEP_PASSWORD)
 
 def executeFile(localFileToRun):    
     runCommand("sh ./" + localFileToRun)
@@ -76,7 +98,7 @@ def runCommand(localCommandToRun):
         subprocess.call(shlex.split(localCommandToRun))
     except:
         commandNotRanSuccessfully(localCommandToRun)
-        exitScript(0)
+        exitScript(KEEP_PASSWORD)
 
 
 def fileNotOpenSuccessfully(localFileNotOpen):
@@ -133,13 +155,18 @@ def getListOfPackagesToInstall():
         PACKAGE_TO_INSTALL_LIST = subprocess.check_output(['cat',PACKAGES_FILE])
     except:
         print(ERROR_OPENING_PACKAGES_FILE)
-        exitScript()
+        exitScript(KEEP_PASSWORD)
     print("Finished getting package list.")
 
 def installPackagesFromFile():
     print("Installing packages from list...")
     installPackage(PACKAGE_TO_INSTALL_LIST)
     print("Finished installing package list.")
+
+def cleanAfterInstall():
+    getListOfFilesToKeepAfterRunning()
+    print(FILES_TO_KEEP_AFTER_RUNNING)
+
 
 def installCaffeineGnomeExtention():
     # Caffeine Gnome Shell Extension
@@ -166,7 +193,8 @@ def performInstall():
     #performInstallSecondtStage()
     #performUpdate()
     #performInstallThirdStage()
-    performInstallFourthStage()
+    #performInstallFourthStage()
+    cleanAfterInstall()
 
     #
     #
@@ -227,9 +255,9 @@ def main():
             getSudoPass()
         except:
             printNeedRootRightsString()
-            exitScript()
+            exitScript(KEEP_PASSWORD)
         performInstall()
-    exitScript(1)
+    exitScript(KEEP_PASSWORD)
 
 #
 # Run Main Script
